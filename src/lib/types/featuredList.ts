@@ -46,7 +46,6 @@ export interface DirectoryListItem {
     // add other fields returned from API
   }
 
-
 export interface DirectoryListResponse {
   directoryList: DirectoryListItem[];
   total: number;

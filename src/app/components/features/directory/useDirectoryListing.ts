@@ -41,7 +41,6 @@ export const useDirectoryListing = ({
 }: UseDirectoryListingProps) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  // const { filters } = useSelector((state: RootState) => state);
   const { filters } = useFilters();
   const [searchResults, setSearchResults] = useState<DirectoryListItem[]>([]);
   const [searchListLoading, setSearchListLoading] = useState(false);

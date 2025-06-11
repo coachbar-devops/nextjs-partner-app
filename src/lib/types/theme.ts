@@ -24,17 +24,12 @@ export interface BannerMapping {
   [key: string]: unknown;
 }
 
-// export interface FilterMapping {
-//   [key: string]: string|number|boolean;
-// }
-
 export interface FilterMapping {
   id: number;
   name: string;
   text: string;
   isChecked: boolean;
 }
-
 
 export interface MatchMakingCardMapping {
   [key: string]: unknown;

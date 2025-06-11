@@ -69,6 +69,7 @@ export const fetchSoftwares = createAsyncThunk(
     return softwareList.map((x: string) => ({ label: x, value: x }));
   }
 );
+
 export const fetchIndustries = createAsyncThunk(
   "filters/fetchIndustries",
   async (tenentId?: string) => {
@@ -76,6 +77,7 @@ export const fetchIndustries = createAsyncThunk(
     return industryList.map((x: string) => ({ label: x, value: x }));
   }
 );
+
 export const fetchServices = createAsyncThunk(
   "filters/fetchServices",
   async (tenentId?: string) => {

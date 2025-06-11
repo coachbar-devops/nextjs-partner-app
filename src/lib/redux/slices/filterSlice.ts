@@ -1,15 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// export interface FilterState {
-//   country?: string;
-//   state?: string;
-//   software?: string;
-//   industry?: string;
-//   service?: string;
-//   projectBudget?: string;
-//   discoveryCall?: string;
-// }
-
 export interface FilterState {
   countries: string[];
   states: string[];
@@ -18,8 +8,6 @@ export interface FilterState {
   services: string[];
   budget: string[];
 }
-
-
 
 const initialState: FilterState = {
   countries: [],
@@ -30,23 +18,22 @@ const initialState: FilterState = {
   budget: [],
 };
 
-
 const filterSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-  setFilter: (
-    state,
-    action: PayloadAction<{ key: keyof FilterState; value: string[] }>
-  ) => {
-    if(action.payload.key === 'countries') {
-      state.states = [];
-    }
-    state[action.payload.key] = action.payload.value;
+    setFilter: (
+      state,
+      action: PayloadAction<{ key: keyof FilterState; value: string[] }>
+    ) => {
+      if (action.payload.key === "countries") {
+        state.states = [];
+      }
+      state[action.payload.key] = action.payload.value;
+    },
+    // Optional: to clear all filters
+    resetFilters: () => initialState,
   },
-  // Optional: to clear all filters
-  resetFilters: () => initialState,
-},
 });
 
 export const { setFilter, resetFilters } = filterSlice.actions;

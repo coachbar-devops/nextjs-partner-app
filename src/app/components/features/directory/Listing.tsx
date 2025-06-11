@@ -39,8 +39,8 @@ export default function Listing({
     const isDemoData = searchParams.get("isDemoData") === "true";
     const url = `/directory-detail/${slug}`;
     const query = new URLSearchParams();
-    const provider = searchParams.get('provider');
-    if (provider) query.append("provider", provider);
+    // const provider = searchParams.get('provider');
+    // if (provider) query.append("provider", provider);
     if (isDemoData) query.append("isDemoData", "true");
     const finalUrl = !query.toString()? url : `${url}?${query.toString()}`;
     router.push(finalUrl);

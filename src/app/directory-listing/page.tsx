@@ -28,7 +28,15 @@ export async function generateMetadata({
     : params?.provider;
   const faviconUrl = process.env.NEXT_PUBLIC_FAVICON_URL || undefined;
 
-  const requestDomainData = await getRequestDomainData(provider);
+  let requestDomainData: {
+    page: string;
+    slug?: string;
+    subDomain?: string | null;
+  } | null = null;
+
+if (provider) {
+  requestDomainData = await getRequestDomainData(provider);
+}
 
   let themeData: CustomThemeResponse | null = null;
 
@@ -73,7 +81,15 @@ export default async function DirectoryListingPage({
   let pageStatusRes: { page: string; status: string }[] | null = null;
   let isVisibleMatchMakingCard: boolean = true;
 
-  const requestDomainData = await getRequestDomainData(provider);
+  let requestDomainData: {
+    page: string;
+    slug?: string;
+    subDomain?: string | null;
+  } | null = null;
+
+if (provider) {
+  requestDomainData = await getRequestDomainData(provider);
+}
 
   try {
     // Theme setup

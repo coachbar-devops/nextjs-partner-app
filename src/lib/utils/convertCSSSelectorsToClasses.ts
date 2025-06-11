@@ -1,19 +1,20 @@
-// lib/convertCSSSelectorsToClasses.ts
-import { JSDOM } from 'jsdom';
-import css from 'css';
+import { JSDOM } from "jsdom";
+import css from "css";
 // import { writeFile } from "fs/promises";
 // import path from "path";
 
-
-export async function wrapOnlyElementSelectors(html: string, wrapperSelector: string): Promise<string> {
+export async function wrapOnlyElementSelectors(
+  html: string,
+  wrapperSelector: string
+): Promise<string> {
   const dom = new JSDOM(html);
   const document = dom.window.document;
 
   // Collect and remove existing styles
-  const styleTags = Array.from(document.querySelectorAll('style'));
-  let combinedCSS = '';
-  styleTags.forEach(tag => {
-    combinedCSS += tag.textContent || '';
+  const styleTags = Array.from(document.querySelectorAll("style"));
+  let combinedCSS = "";
+  styleTags.forEach((tag) => {
+    combinedCSS += tag.textContent || "";
     tag.remove();
   });
 
@@ -25,8 +26,8 @@ export async function wrapOnlyElementSelectors(html: string, wrapperSelector: st
     const parts = selector.split(/\s+/);
 
     // If **any** part contains a class or ID, skip wrapping
-    return parts.every(part => {
-      return !part.includes('.') && !part.includes('#');
+    return parts.every((part) => {
+      return !part.includes(".") && !part.includes("#");
     });
   }
 
@@ -37,10 +38,13 @@ export async function wrapOnlyElementSelectors(html: string, wrapperSelector: st
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function processRules(rules: any[]): void {
-    rules.forEach(rule => {
-      if (rule.type === 'rule' && rule.selectors) {
+    rules.forEach((rule) => {
+      if (rule.type === "rule" && rule.selectors) {
         rule.selectors = rule.selectors.map(wrapSelector);
-      } else if ((rule.type === 'media' || rule.type === 'supports') && rule.rules) {
+      } else if (
+        (rule.type === "media" || rule.type === "supports") &&
+        rule.rules
+      ) {
         processRules(rule.rules);
       }
     });
@@ -51,15 +55,15 @@ export async function wrapOnlyElementSelectors(html: string, wrapperSelector: st
   }
 
   // Create new scoped <style>
-  const newStyle = document.createElement('style');
+  const newStyle = document.createElement("style");
   newStyle.textContent = css.stringify(ast);
   document.head.appendChild(newStyle);
 
   // Wrap all body content
-  const wrapper = document.createElement('div');
-  if (wrapperSelector.startsWith('#')) {
+  const wrapper = document.createElement("div");
+  if (wrapperSelector.startsWith("#")) {
     wrapper.id = wrapperSelector.slice(1);
-  } else if (wrapperSelector.startsWith('.')) {
+  } else if (wrapperSelector.startsWith(".")) {
     wrapper.className = wrapperSelector.slice(1);
   }
 
@@ -68,9 +72,8 @@ export async function wrapOnlyElementSelectors(html: string, wrapperSelector: st
   }
   document.body.appendChild(wrapper);
 
-//     const outputPath = path.join(process.cwd(), "public", "generated", "wrapped.html");
-//   await writeFile(outputPath, dom.serialize(), "utf8");
+  //     const outputPath = path.join(process.cwd(), "public", "generated", "wrapped.html");
+  //   await writeFile(outputPath, dom.serialize(), "utf8");
 
   return dom.serialize();
 }
-

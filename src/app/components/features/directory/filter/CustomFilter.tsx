@@ -12,6 +12,19 @@ import { FilterState } from "@/lib/redux/slices/filterSlice";
 import CountryFlag from "./CountryFlag";
 import FilterBasedIcon from "./FilterBasedIcon";
 
+interface Option {
+  label: string | React.ReactNode;
+  value: string;
+  id?: string;
+  iso2?: string;
+}
+
+interface CustomFilterProps {
+  id: keyof FilterState;
+  placeholder: React.ReactNode;
+  options: Option[];
+}
+
 const MultiValue = () => null;
 
 const ValueContainer = <Option, IsMulti extends boolean = false>({
@@ -45,19 +58,6 @@ const ValueContainer = <Option, IsMulti extends boolean = false>({
     </components.ValueContainer>
   );
 };
-
-interface Option {
-  label: string | React.ReactNode;
-  value: string;
-  id?: string;
-  iso2?: string;
-}
-
-interface CustomFilterProps {
-  id: keyof FilterState;
-  placeholder: React.ReactNode;
-  options: Option[];
-}
 
 export default function CustomFilter({
   id,

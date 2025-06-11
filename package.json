@@ -1,5 +1,5 @@
 {
-  "name": "partner-app",
+  "name": "@coachbar/partner-next-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {

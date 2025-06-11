@@ -14,43 +14,42 @@ import FeaturedList from "../components/features/directory/featuredlist/Featured
 import DirectoryListing from "../components/features/directory/DirectoryListing";
 import Footer from "../components/features/footer/Footer";
 import { domainsToHideSearchFor } from "@/lib/utils/constantValues";
-import { Metadata } from "next";
 
 interface DirectoryListingPageProps {
- searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export async function generateMetadata({
   searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}): Promise<Metadata> {
+}: DirectoryListingPageProps) {
   const params = await searchParams;
-  const provider = Array.isArray(params?.provider) ? params?.provider[0] : params?.provider;
+  const provider = Array.isArray(params?.provider)
+    ? params?.provider[0]
+    : params?.provider;
   const faviconUrl = process.env.NEXT_PUBLIC_FAVICON_URL || undefined;
 
-    const requestDomainData = await getRequestDomainData(provider);
+  const requestDomainData = await getRequestDomainData(provider);
 
   let themeData: CustomThemeResponse | null = null;
 
   if (requestDomainData?.slug || requestDomainData?.subDomain) {
-      const themeRes = await api.post<CustomThemeResponse>(
-        "/sp/setup/customTheme",
-        requestDomainData
-      );
-      themeData = themeRes?.data || null;
-    }
+    const themeRes = await api.post<CustomThemeResponse>(
+      "/sp/setup/customTheme",
+      requestDomainData
+    );
+    themeData = themeRes?.data || null;
+  }
 
-  const title =
-    themeData?.companyName || 'Partner Directory';
+  const title = themeData?.companyName || "Partner Directory";
   const faviconUrlFromTheme = themeData?.urls?.favIcon || faviconUrl;
   const icons = {
-        icon: faviconUrlFromTheme,
-      };
+    icon: faviconUrlFromTheme,
+  };
 
   return {
     title,
-    description: "Explore our partner directory to find the best solutions for your needs.",
+    description:
+      "Explore our partner directory to find the best solutions for your needs.",
     icons,
   };
 }
@@ -59,7 +58,9 @@ export default async function DirectoryListingPage({
   searchParams,
 }: DirectoryListingPageProps) {
   const params = await searchParams;
-  const provider = Array.isArray(params?.provider) ? params?.provider[0] : params?.provider;
+  const provider = Array.isArray(params?.provider)
+    ? params?.provider[0]
+    : params?.provider;
 
   const pageType = "directory-listing";
   const fixedPageLimit = 24;

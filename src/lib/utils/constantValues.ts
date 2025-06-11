@@ -1,6 +1,5 @@
 import { FilterMapping } from "../types/theme";
 
-
 export const brandName = "ChannelBoost";
 
 export const stdFontWeight = 400;
@@ -110,44 +109,44 @@ export const serviceCategoryOptions = [
   },
 ];
 
-export const FilterOptions:FilterMapping[] =[
-          {
-            id:1,
-            text: "country",
-            name: "All Countries",
-            isChecked: true,
-          },
-          {
-            id:2,
-            name: "All Softwares",
-            text: "software specialisation",
-            isChecked: true,
-          },
-          {
-            id:3,
-            name: "All Industries",
-            text: "industry",
-            isChecked: true,
-          },
-          {
-            id:4,
-            name: "All Services",
-            text: "service",
-            isChecked: true,
-          },
-          {
-            id:5,
-            name: "Project Budget",
-            text: "project budget",
-            isChecked: true,
-          },
-          {
-            id:6,
-            name: "All States",
-            text: "state",
-            isChecked: true,
-          },
-        ]
+export const FilterOptions: FilterMapping[] = [
+  {
+    id: 1,
+    text: "country",
+    name: "All Countries",
+    isChecked: true,
+  },
+  {
+    id: 2,
+    name: "All Softwares",
+    text: "software specialisation",
+    isChecked: true,
+  },
+  {
+    id: 3,
+    name: "All Industries",
+    text: "industry",
+    isChecked: true,
+  },
+  {
+    id: 4,
+    name: "All Services",
+    text: "service",
+    isChecked: true,
+  },
+  {
+    id: 5,
+    name: "Project Budget",
+    text: "project budget",
+    isChecked: true,
+  },
+  {
+    id: 6,
+    name: "All States",
+    text: "state",
+    isChecked: true,
+  },
+];
 
 export const currenciesList = [
   {
@@ -430,4 +429,3 @@ export const currenciesList = [
     formatLocale: "de-DE",
   },
 ];
-

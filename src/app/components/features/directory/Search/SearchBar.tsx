@@ -12,14 +12,13 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { ImageWithFallback as Image } from "../../../ui-components/Image/Image";
-import { IoCloseSharp  } from "react-icons/io5";
+import { IoCloseSharp } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
 import Select from "react-select";
 import { useDebounce } from "use-debounce";
 import { DirectoryListItem } from "@/lib/types/featuredList";
-import './searchBar.css';
-
+import "./searchBar.css";
 
 interface SortingOption {
   value: string;
@@ -56,7 +55,7 @@ export default function SearchBar({
     if (debouncedSearchValue && debouncedSearchValue.length >= 3) {
       onSearch(debouncedSearchValue);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchValue]);
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
@@ -110,94 +109,92 @@ export default function SearchBar({
         autoFocus={false}
       >
         <Box width={"100%"}>
-        <Popover.Trigger  >
-          <InputGroup
-            startElement={<FaSearch size={16} color="#9EA5AD"/>}
-            endElement={
-              searchTerm && (
-                <IoCloseSharp 
-                  size={24}
-                  color={"#9EA5AD"}
-                  onClick={handleClearSearch}
-                />
-              )
-            }
-          >
-            <Input
-              type="text"
-              placeholder="Search by name, services or phrases..."
-              maxH="38px"
-              onChange={handleSearch}
-              onKeyDown={handleEnterKeySearch}
-              onBlur={handleSearchBlur}
-              onFocus={handleSearchFocus}
-              value={searchTerm}
-              _focus={{
-                borderColor: "#0C94AC !important",
-                boxShadow: "none",
-              }}
-            />
-          </InputGroup>
-        </Popover.Trigger>
+          <Popover.Trigger>
+            <InputGroup
+              startElement={<FaSearch size={16} color="#9EA5AD" />}
+              endElement={
+                searchTerm && (
+                  <IoCloseSharp
+                    size={24}
+                    color={"#9EA5AD"}
+                    onClick={handleClearSearch}
+                  />
+                )
+              }
+            >
+              <Input
+                type="text"
+                placeholder="Search by name, services or phrases..."
+                maxH="38px"
+                onChange={handleSearch}
+                onKeyDown={handleEnterKeySearch}
+                onBlur={handleSearchBlur}
+                onFocus={handleSearchFocus}
+                value={searchTerm}
+                _focus={{
+                  borderColor: "#0C94AC !important",
+                  boxShadow: "none",
+                }}
+              />
+            </InputGroup>
+          </Popover.Trigger>
 
-        <Popover.Content>
-          <Popover.Body>
-            {searchListLoading ? (
-              <Center minH="100px">
-                {/* <Box animation={`${spin} 1s linear infinite`}>
+          <Popover.Content>
+            <Popover.Body>
+              {searchListLoading ? (
+                <Center minH="100px">
+                  {/* <Box animation={`${spin} 1s linear infinite`}>
                  
                 </Box> */}
-              </Center>
-            ) : globalSearchResults?.length > 0 ? (
-              globalSearchResults.map((data) => (
-                <HStack
-                  key={data?.slug || data?.tenantId}
-                  _hover={{ bg: "gray.50" }}
-                  p={2}
-                  gap={2}
-                  cursor="pointer"
-                  onMouseDown={(e) => {
-                    if (e.buttons === 1)
-                      onItemClick(data.slug || data.tenantId);
-                  }}
-                >
-                  <Image
-                    src={data.logo}
-                    alt={data.companyName}
-                    width={48}
-                    height={48}
-                    fallback={""}
-                  />
-                  <VStack align="start" gap={0}>
-                    <Box fontWeight="bold" fontSize="16px">
-                      {data.companyName}
-                    </Box>
-                    <Box fontSize="14px" color="gray.600">
-                      {/* {data.companyDetails
+                </Center>
+              ) : globalSearchResults?.length > 0 ? (
+                globalSearchResults.map((data) => (
+                  <HStack
+                    key={data?.slug || data?.tenantId}
+                    _hover={{ bg: "gray.50" }}
+                    p={2}
+                    gap={2}
+                    cursor="pointer"
+                    onMouseDown={(e) => {
+                      if (e.buttons === 1)
+                        onItemClick(data.slug || data.tenantId);
+                    }}
+                  >
+                    <Image
+                      src={data.logo}
+                      alt={data.companyName}
+                      width={48}
+                      height={48}
+                      fallback={""}
+                    />
+                    <VStack align="start" gap={0}>
+                      <Box fontWeight="bold" fontSize="16px">
+                        {data.companyName}
+                      </Box>
+                      <Box fontSize="14px" color="gray.600">
+                        {/* {data.companyDetails
                         ? he.decode(data.companyDetails).slice(0, 130) +
                           (he.decode(data.companyDetails).length > 130
                             ? "..."
                             : "")
                         : ""} */}
                         {data.companyDetails
-                        ? data.companyDetails.slice(0, 130) +
-                          (data.companyDetails.length > 130
-                            ? "..."
-                            : "")
-                        : ""}
-                    </Box>
-                  </VStack>
-                </HStack>
-              ))
-            ) : (
-              <Center minH="100px" bg="#F9FCFF" rounded="8px">
-                <Box fontSize="16px" fontWeight={500}>
-                  No results found. Try a different word or phrase.
-                </Box>
-              </Center>
-            )}
-          </Popover.Body>
-        </Popover.Content>
+                          ? data.companyDetails.slice(0, 130) +
+                            (data.companyDetails.length > 130 ? "..." : "")
+                          : ""}
+                      </Box>
+                    </VStack>
+                  </HStack>
+                ))
+              ) : (
+                <Center minH="100px" bg="#F9FCFF" rounded="8px">
+                  <Box fontSize="16px" fontWeight={500}>
+                    No results found. Try a different word or phrase.
+                  </Box>
+                </Center>
+              )}
+            </Popover.Body>
+          </Popover.Content>
         </Box>
       </Popover.Root>
 

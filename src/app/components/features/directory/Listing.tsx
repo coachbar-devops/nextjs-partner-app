@@ -42,14 +42,15 @@ export default function Listing({
     // const provider = searchParams.get('provider');
     // if (provider) query.append("provider", provider);
     if (isDemoData) query.append("isDemoData", "true");
-    const finalUrl = !query.toString()? url : `${url}?${query.toString()}`;
+    const finalUrl = !query.toString() ? url : `${url}?${query.toString()}`;
     router.push(finalUrl);
   };
 
   const handleClick = () => {
-    if (pageType) {
-      router.push(`/service-request-page?provider=${pageType}`);
-    } else if (subDomain) {
+    // if (pageType) {
+    //   router.push(`/service-request-page?provider=${pageType}`);
+    // } else
+    if (subDomain) {
       router.push("/service-request-page");
     } else {
       window.location.href =

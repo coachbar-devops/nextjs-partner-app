@@ -23,8 +23,8 @@ export default function Banner({
   isStatic,
   data,
   pageStatus,
-  pageType,
-}: BannerProps) {
+}: // pageType,
+BannerProps) {
   const partnerEnabled =
     pageStatus.find((item) => item.page === "partner-request")?.status ===
       "published" && data?.partnerRequestBtnChecked;
@@ -73,9 +73,10 @@ export default function Banner({
               border={`2px solid ${data?.partnerRequestBtnColor}`}
               title={data?.partnerRequestBtnTitle}
               href={
-                pageType
-                  ? `/partner-request-page?provider=${pageType}`
-                  : `/partner-request-page`
+                // pageType
+                //   ? `/partner-request-page?provider=${pageType}`
+                //   :
+                `/partner-request-page`
               }
             >
               {data?.partnerRequestBtnTitle || "Request Partnership"}
@@ -94,9 +95,10 @@ export default function Banner({
               color={data?.serviceRequestBtnTitleColor}
               title={data?.serviceRequestBtnTitle}
               href={
-                pageType
-                  ? `/service-request-page?provider=${pageType}`
-                  : `/service-request-page`
+                // pageType
+                //   ? `/service-request-page?provider=${pageType}`
+                //   :
+                `/service-request-page`
               }
             >
               {data?.serviceRequestBtnTitle || "Request Service"}

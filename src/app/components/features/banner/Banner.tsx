@@ -16,6 +16,7 @@ interface BannerProps {
   data?: BannerMapping;
   pageStatus: PageStatusItem[];
   pageType?: string;
+  provider?: string;
 }
 
 export default function Banner({
@@ -23,6 +24,7 @@ export default function Banner({
   isStatic,
   data,
   pageStatus,
+  provider,
 }: // pageType,
 BannerProps) {
   const partnerEnabled =
@@ -73,10 +75,9 @@ BannerProps) {
               border={`2px solid ${data?.partnerRequestBtnColor}`}
               title={data?.partnerRequestBtnTitle}
               href={
-                // pageType
-                //   ? `/partner-request-page?provider=${pageType}`
-                //   :
-                `/partner-request-page`
+                provider
+                  ? `/partner-request-page?provider=${provider}`
+                  : `/partner-request-page`
               }
             >
               {data?.partnerRequestBtnTitle || "Request Partnership"}
@@ -95,10 +96,9 @@ BannerProps) {
               color={data?.serviceRequestBtnTitleColor}
               title={data?.serviceRequestBtnTitle}
               href={
-                // pageType
-                //   ? `/service-request-page?provider=${pageType}`
-                //   :
-                `/service-request-page`
+                provider
+                  ? `/service-request-page?provider=${provider}`
+                  : `/service-request-page`
               }
             >
               {data?.serviceRequestBtnTitle || "Request Service"}

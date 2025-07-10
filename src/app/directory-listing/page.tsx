@@ -34,6 +34,7 @@ export async function generateMetadata({
     mainDomain?: string | null;
   } | null = null;
 
+  console.log("provider", provider);
   if (provider) {
     requestDomainData = await getRequestDomainData(provider);
   } else {
@@ -48,7 +49,7 @@ export async function generateMetadata({
       process.env.NEXT_PUBLIC_STACK_PLAN_PARTNER_DIRECTORY_SUBDOMAIN;
     // Only assign if domain doesn't match either of these two conditions
     if (!isStackMainDomainMatch && !isPartnerDirectoryDomain) {
-      // requestDomainData = { ...domainData };
+      requestDomainData = { ...domainData };
     }
   }
   // requestDomainData = await getRequestDomainData(provider);
@@ -103,6 +104,7 @@ export default async function DirectoryListingPage({
     mainDomain?: string | null;
   } | null = null;
 
+  console.log("provider", provider);
   if (provider) {
     requestDomainData = await getRequestDomainData(provider);
   } else {
@@ -133,7 +135,7 @@ export default async function DirectoryListingPage({
 
     // Only assign if domain doesn't match either of these two conditions
     if (!isStackMainDomainMatch && !isPartnerDirectoryDomain) {
-      // requestDomainData = { ...domainData };
+      requestDomainData = { ...domainData };
     }
   }
   // requestDomainData = await getRequestDomainData(provider);

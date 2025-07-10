@@ -38,10 +38,24 @@ export async function generateMetadata({
     mainDomain?: string | null;
   } | null = null;
 
-  // if (provider) {
-  //   requestDomainData = await getRequestDomainData(provider);
-  // }
-  requestDomainData = await getRequestDomainData(provider);
+  if (provider) {
+    requestDomainData = await getRequestDomainData(provider);
+  } else {
+    const domainData = await getRequestDomainData();
+
+    const isStackMainDomainMatch =
+      domainData?.subDomain === process.env.NEXT_PUBLIC_SUBDOMAIN &&
+      domainData?.mainDomain === process.env.NEXT_PUBLIC_APP_STACK_MAIN_DOMAIN;
+
+    const isPartnerDirectoryDomain =
+      domainData?.subDomain ===
+      process.env.NEXT_PUBLIC_STACK_PLAN_PARTNER_DIRECTORY_SUBDOMAIN;
+    // Only assign if domain doesn't match either of these two conditions
+    if (!isStackMainDomainMatch && !isPartnerDirectoryDomain) {
+      requestDomainData = { ...domainData };
+    }
+  }
+  // requestDomainData = await getRequestDomainData(provider);
 
   let themeData: CustomThemeResponse | null = null;
 
@@ -97,10 +111,24 @@ export default async function DirectoryListingPage({
     mainDomain?: string | null;
   } | null = null;
 
-  // if (provider) {
-  //   requestDomainData = await getRequestDomainData(provider);
-  // }
-  requestDomainData = await getRequestDomainData(provider);
+  if (provider) {
+    requestDomainData = await getRequestDomainData(provider);
+  } else {
+    const domainData = await getRequestDomainData();
+
+    const isStackMainDomainMatch =
+      domainData?.subDomain === process.env.NEXT_PUBLIC_SUBDOMAIN &&
+      domainData?.mainDomain === process.env.NEXT_PUBLIC_APP_STACK_MAIN_DOMAIN;
+
+    const isPartnerDirectoryDomain =
+      domainData?.subDomain ===
+      process.env.NEXT_PUBLIC_STACK_PLAN_PARTNER_DIRECTORY_SUBDOMAIN;
+    // Only assign if domain doesn't match either of these two conditions
+    if (!isStackMainDomainMatch && !isPartnerDirectoryDomain) {
+      requestDomainData = { ...domainData };
+    }
+  }
+  // requestDomainData = await getRequestDomainData(provider);
   const response = await api.get(
     `sp/setup/domain?mainDomain=${requestDomainData?.mainDomain}&path=${page_name}`
   );

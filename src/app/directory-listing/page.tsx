@@ -82,6 +82,7 @@ export default async function DirectoryListingPage({
   searchParams,
 }: DirectoryListingPageProps) {
   const params = await searchParams;
+  console.log("params", params);
   const provider = Array.isArray(params?.provider)
     ? params?.provider[0]
     : params?.provider;

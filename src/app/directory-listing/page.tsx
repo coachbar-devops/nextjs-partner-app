@@ -14,6 +14,7 @@ import FeaturedList from "../components/features/directory/featuredlist/Featured
 import DirectoryListing from "../components/features/directory/DirectoryListing";
 import Footer from "../components/features/footer/Footer";
 import { domainsToHideSearchFor } from "@/lib/utils/constantValues";
+
 interface DirectoryListingPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
@@ -34,7 +35,6 @@ export async function generateMetadata({
     mainDomain?: string | null;
   } | null = null;
 
-  console.log("provider", provider);
   if (provider) {
     requestDomainData = await getRequestDomainData(provider);
   } else {
@@ -52,7 +52,6 @@ export async function generateMetadata({
       requestDomainData = { ...domainData };
     }
   }
-  // requestDomainData = await getRequestDomainData(provider);
 
   let themeData: CustomThemeResponse | null = null;
 
@@ -104,7 +103,6 @@ export default async function DirectoryListingPage({
     mainDomain?: string | null;
   } | null = null;
 
-  console.log("provider", provider);
   if (provider) {
     requestDomainData = await getRequestDomainData(provider);
   } else {
@@ -117,28 +115,12 @@ export default async function DirectoryListingPage({
     const isPartnerDirectoryDomain =
       domainData?.subDomain ===
       process.env.NEXT_PUBLIC_STACK_PLAN_PARTNER_DIRECTORY_SUBDOMAIN;
-
-    console.log("domainData", domainData);
-    console.log(
-      process.env.NEXT_PUBLIC_SUBDOMAIN,
-      "domainData?.subDomain",
-      domainData?.subDomain,
-      process.env.NEXT_PUBLIC_APP_STACK_MAIN_DOMAIN,
-      "process.env.NEXT_PUBLIC_APP_STACK_MAIN_DOMAIN"
-    );
-    console.log("isStackMainDomainMatch", isStackMainDomainMatch);
-    console.log("isPartnerDirectoryDomain", isPartnerDirectoryDomain);
-    console.log(
-      "!isStackMainDomainMatch && !isPartnerDirectoryDomain",
-      !isStackMainDomainMatch && !isPartnerDirectoryDomain
-    );
-
     // Only assign if domain doesn't match either of these two conditions
     if (!isStackMainDomainMatch && !isPartnerDirectoryDomain) {
       requestDomainData = { ...domainData };
     }
   }
-  // requestDomainData = await getRequestDomainData(provider);
+
   try {
     // Theme setup
     if (requestDomainData?.slug || requestDomainData?.subDomain) {

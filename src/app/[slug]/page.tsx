@@ -93,7 +93,9 @@ export default async function DirectoryListingPage({
     page_name = `/${page_name}`;
   }
   const headersList = await headers();
-  const host = headersList.get("host");
+  // const host = headersList.get("host");
+  const forwardedHost = headersList.get("x-forwarded-host");
+  const host = forwardedHost || headersList.get("host");
   const protocol = headersList.get("x-forwarded-proto") || "https";
   const fullUrl = `${protocol}://${host}`;
 

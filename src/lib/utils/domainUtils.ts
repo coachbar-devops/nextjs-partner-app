@@ -24,8 +24,9 @@ export const getMaindomainFromHost = (host: string): string | null => {
 
 export const getRequestDomainData = async (provider?: string) => {
   const headersList = await headers();
-  const host = headersList.get("host") || "";
-
+  // const host = headersList.get("host") || "";
+  const forwardedHost = headersList.get("x-forwarded-host");
+  const host = forwardedHost || headersList.get("host") || "";
   const subdomainName = getSubdomainFromHost(host);
   const mainDomain = getMaindomainFromHost(host);
 

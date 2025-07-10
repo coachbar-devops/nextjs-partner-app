@@ -37,6 +37,7 @@ export async function generateMetadata({
 
   if (provider) {
     requestDomainData = await getRequestDomainData(provider);
+    console.log("requestDomainData", requestDomainData);
   } else {
     const domainData = await getRequestDomainData();
 

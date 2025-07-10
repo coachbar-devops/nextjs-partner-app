@@ -15,6 +15,9 @@ import DirectoryListing from "../components/features/directory/DirectoryListing"
 import Footer from "../components/features/footer/Footer";
 import { domainsToHideSearchFor } from "@/lib/utils/constantValues";
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
+
+const excludeDirectory = process.env.NEXT_PUBLIC_EXCLUDE_DOMAIN?.split(",");
 
 interface DirectoryListingPageProps {
   params: Promise<{ slug: string }>;
@@ -89,6 +92,11 @@ export default async function DirectoryListingPage({
   if (page_name) {
     page_name = `/${page_name}`;
   }
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const protocol = headersList.get("x-forwarded-proto") || "https";
+  const fullUrl = `${protocol}://${host}`;
+
   const pageType = "directory-listing";
   const fixedPageLimit = 24;
   const searchParamsData = await searchParams;
@@ -129,15 +137,24 @@ export default async function DirectoryListingPage({
     }
   }
   // requestDomainData = await getRequestDomainData(provider);
-  const response = await api.get(
-    `sp/setup/domain?mainDomain=${requestDomainData?.mainDomain}&path=${page_name}`
-  );
-  // const response = await api.get(
-  //   `/sp/setup/domain?mainDomain=${"coachbar"}&path=${page_name}`
-  // );
-  if (page_name !== response.data) {
-    notFound();
+  if (
+    Array.isArray(excludeDirectory) &&
+    !excludeDirectory.some((substring) => fullUrl.includes(substring)) &&
+    !fullUrl.includes("stack.stackplan.com") &&
+    requestDomainData?.mainDomain &&
+    page_name
+  ) {
+    const response = await api.get(
+      `sp/setup/domain?mainDomain=${requestDomainData?.mainDomain}&path=${page_name}`
+    );
+    // const response = await api.get(
+    //   `/sp/setup/domain?mainDomain=${"coachbar"}&path=${page_name}`
+    // );
+    if (page_name !== response.data) {
+      notFound();
+    }
   }
+
   try {
     // Theme setup
     if (requestDomainData?.slug || requestDomainData?.subDomain) {

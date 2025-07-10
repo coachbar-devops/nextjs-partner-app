@@ -32,6 +32,7 @@ export async function generateMetadata({
     page: string;
     slug?: string;
     subDomain?: string | null;
+    mainDomain?: string | null;
   } | null = null;
 
   if (provider) {
@@ -99,6 +100,7 @@ export default async function DirectoryListingPage({
     page: string;
     slug?: string;
     subDomain?: string | null;
+    mainDomain?: string | null;
   } | null = null;
 
   if (provider) {

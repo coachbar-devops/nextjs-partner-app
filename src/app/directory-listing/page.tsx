@@ -48,7 +48,7 @@ export async function generateMetadata({
       process.env.NEXT_PUBLIC_STACK_PLAN_PARTNER_DIRECTORY_SUBDOMAIN;
     // Only assign if domain doesn't match either of these two conditions
     if (!isStackMainDomainMatch && !isPartnerDirectoryDomain) {
-      requestDomainData = { ...domainData };
+      // requestDomainData = { ...domainData };
     }
   }
   // requestDomainData = await getRequestDomainData(provider);
@@ -116,6 +116,7 @@ export default async function DirectoryListingPage({
       domainData?.subDomain ===
       process.env.NEXT_PUBLIC_STACK_PLAN_PARTNER_DIRECTORY_SUBDOMAIN;
 
+    console.log("domainData", domainData);
     console.log(
       process.env.NEXT_PUBLIC_SUBDOMAIN,
       "domainData?.subDomain",
@@ -132,7 +133,7 @@ export default async function DirectoryListingPage({
 
     // Only assign if domain doesn't match either of these two conditions
     if (!isStackMainDomainMatch && !isPartnerDirectoryDomain) {
-      requestDomainData = { ...domainData };
+      // requestDomainData = { ...domainData };
     }
   }
   // requestDomainData = await getRequestDomainData(provider);
